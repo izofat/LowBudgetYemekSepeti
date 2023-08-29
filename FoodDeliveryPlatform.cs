@@ -150,7 +150,9 @@ namespace Food_Delivery_Platform
             {
                 if (loginsignup.LogIncustomer(username, password) == 0)
                 {
+
                     UserForm usform = new UserForm();
+                    usform.Localusername = username;
                     usform.Show();
                 }
                 
@@ -203,6 +205,7 @@ namespace Food_Delivery_Platform
             {                               
                 if (loginsignup.LogInBusiness(username, password) == 0)
                 {
+                    
                     BusinessForm bsform = new BusinessForm();                   
                     bsform.Localusername = username;
                     bsform.Show();
