@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Microsoft.VisualBasic;
+
 namespace Food_Delivery_Platform
 {
     public partial class UserForm : Form
@@ -28,7 +28,27 @@ namespace Food_Delivery_Platform
             if (location == DBNull.Value.ToString())
             {
                 MessageBox.Show("Welcome to the LOW BUDGET YEMEKSEPETI \n firstly enter your location");
-                string userInput = Interaction.InputBox
+                groupBoxgetloc.Visible = true;
+            }
+            else
+            {
+                groupBoxgetloc.Visible = true;
+                btnsave.Visible = false;
+                txtbxlocation.Text = location;
+            }
+        }
+
+        private void btnsave_Click(object sender, EventArgs e)
+        {
+            string location = txtbxlocation.Text;
+            if (location != "" && usaction.SetLocation(localusername, location))
+            {
+                MessageBox.Show("Location Updated Successfully");
+                btnsave.Visible = false;
+            } 
+            else
+            {
+                MessageBox.Show("Enter a location to set ");
             }
         }
     }
