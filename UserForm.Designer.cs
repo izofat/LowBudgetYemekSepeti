@@ -32,6 +32,8 @@
             this.txtbxlocation = new System.Windows.Forms.TextBox();
             this.lblloc = new System.Windows.Forms.Label();
             this.btnsave = new System.Windows.Forms.Button();
+            this.comboBoxrestourants = new System.Windows.Forms.ComboBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.groupBoxgetloc.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -79,12 +81,32 @@
             this.btnsave.UseVisualStyleBackColor = true;
             this.btnsave.Click += new System.EventHandler(this.btnsave_Click);
             // 
+            // comboBoxrestourants
+            // 
+            this.comboBoxrestourants.Font = new System.Drawing.Font("Arial Black", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxrestourants.FormattingEnabled = true;
+            this.comboBoxrestourants.Location = new System.Drawing.Point(12, 12);
+            this.comboBoxrestourants.Name = "comboBoxrestourants";
+            this.comboBoxrestourants.Size = new System.Drawing.Size(199, 35);
+            this.comboBoxrestourants.TabIndex = 1;
+            this.comboBoxrestourants.Visible = false;
+            this.comboBoxrestourants.SelectedIndexChanged += new System.EventHandler(this.comboBoxrestourants_SelectedIndexChanged);
+            // 
+            // panel1
+            // 
+            this.panel1.Location = new System.Drawing.Point(328, 27);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(329, 519);
+            this.panel1.TabIndex = 2;
+            // 
             // UserForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Red;
             this.ClientSize = new System.Drawing.Size(1109, 613);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.comboBoxrestourants);
             this.Controls.Add(this.groupBoxgetloc);
             this.Name = "UserForm";
             this.Text = "UserForm";
@@ -101,5 +123,7 @@
         private System.Windows.Forms.TextBox txtbxlocation;
         private System.Windows.Forms.Label lblloc;
         private System.Windows.Forms.Button btnsave;
+        private System.Windows.Forms.ComboBox comboBoxrestourants;
+        private System.Windows.Forms.Panel panel1;
     }
 }

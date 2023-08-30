@@ -24,7 +24,11 @@ namespace Food_Delivery_Platform
         private void UserForm_Load(object sender, EventArgs e)
         {
             string location = usaction.CheckLocation(localusername);
-            
+            List<string> restourants = usaction.ShowRestourants();
+            foreach (string restourant in restourants)
+            {
+                comboBoxrestourants.Items.Add(restourant);
+            }           
             if (location == DBNull.Value.ToString())
             {
                 MessageBox.Show("Welcome to the LOW BUDGET YEMEKSEPETI \n firstly enter your location");
@@ -35,6 +39,8 @@ namespace Food_Delivery_Platform
                 groupBoxgetloc.Visible = true;
                 btnsave.Visible = false;
                 txtbxlocation.Text = location;
+                txtbxlocation.ReadOnly = true;
+                comboBoxrestourants.Visible = true;
             }
         }
 
@@ -45,11 +51,18 @@ namespace Food_Delivery_Platform
             {
                 MessageBox.Show("Location Updated Successfully");
                 btnsave.Visible = false;
+                txtbxlocation.ReadOnly = true;
+                comboBoxrestourants.Visible = true;
             } 
             else
             {
                 MessageBox.Show("Enter a location to set ");
             }
+        }
+
+        private void comboBoxrestourants_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
