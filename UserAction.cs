@@ -13,7 +13,10 @@ namespace Food_Delivery_Platform
         string getLocation = "SELECT Location From Users WHERE UserName = @username";
         string updateLocation = "UPDATE Users SET Location = @location WHERE UserName = @username";
         string getRestourants = "SELECT RestourantName FROM BusinessUsers";
-        string getProducts = "SELECT ProductName,Ingredients,Price,Status,ImageLocation FROM @tablename";
+        string getProducts = "SELECT @info FROM @tablename";
+        string getCount = "SELECT COUNT(ProductName) FROM @restourantname";
+        
+        
         public string CheckLocation(string username)
         {
             string location = "";
@@ -74,6 +77,7 @@ namespace Food_Delivery_Platform
                         {
                             while (reader.Read())
                             {
+
                                 string restourant = reader["RestourantName"].ToString();
                                 restourants.Add(restourant);
                             }
@@ -87,7 +91,93 @@ namespace Food_Delivery_Platform
             }            
             return restourants;
         }
-
+        public void ShowProducts (string restourantname , out int count  , out List<string> productname,
+                                    out List<string> ingredients, out List<string> prices , out List<string> statuses,
+                                    out List<string> imagelocations)
+        {
+            count = 0;
+            productname = new List<string>();
+            ingredients = new List<string>();
+            prices = new List<string>();
+            statuses = new List<string>();
+            imagelocations = new List<string>();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(Path))
+                {
+                    connection.Open();
+                    getCount = "SELECT COUNT(ProductName) FROM " + restourantname;
+                    using (SqlCommand getcountcmd = new SqlCommand(getCount, connection))
+                    {
+                        count = Convert.ToInt32(getcountcmd.ExecuteScalar());
+                    }
+                    getProducts = "SELECT ProductName FROM " + restourantname;
+                    using (SqlCommand getproductcmd = new SqlCommand(getProducts, connection))
+                    {
+                        using (SqlDataReader reader = getproductcmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                string product = reader["ProductName"].ToString();
+                                productname.Add(product);
+                            }
+                        }
+                    }
+                    getProducts = "SELECT Ingredients FROM " + restourantname;
+                    using (SqlCommand getproductcmd = new SqlCommand(getProducts, connection))
+                    {
+                        using (SqlDataReader reader = getproductcmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                string ingredient = reader["Ingredients"].ToString();
+                                ingredients.Add(ingredient);
+                            }
+                        }
+                    }
+                    getProducts = "SELECT Price FROM " + restourantname;
+                    using (SqlCommand getproductcmd = new SqlCommand(getProducts, connection))
+                    {
+                        using (SqlDataReader reader = getproductcmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                string price = reader["Price"].ToString();
+                                prices.Add(price);
+                            }
+                        }
+                    }
+                    getProducts = "SELECT Status FROM " + restourantname;
+                    using (SqlCommand getproductcmd = new SqlCommand(getProducts, connection))
+                    {
+                        using (SqlDataReader reader = getproductcmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                string status = reader["Status"].ToString();
+                                statuses.Add(status);
+                            }
+                        }
+                    }
+                    getProducts = "SELECT ImageLocation FROM " + restourantname;
+                    using (SqlCommand getproductcmd = new SqlCommand(getProducts, connection))
+                    {
+                        using (SqlDataReader reader = getproductcmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                string imagelocation = reader["ImageLocation"].ToString();
+                                imagelocations.Add(imagelocation);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ea)
+            {
+                MessageBox.Show(ea.Message);
+            }            
+        }
         
 
 

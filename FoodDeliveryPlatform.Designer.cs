@@ -33,16 +33,16 @@
             this.btncustomer = new System.Windows.Forms.Button();
             this.btnbuniness = new System.Windows.Forms.Button();
             this.groupBoxstartup = new System.Windows.Forms.GroupBox();
+            this.groupBoxactions = new System.Windows.Forms.GroupBox();
             this.txtbxpassword = new System.Windows.Forms.TextBox();
             this.btnshow = new System.Windows.Forms.Button();
+            this.lblusername = new System.Windows.Forms.Label();
+            this.lblpassword = new System.Windows.Forms.Label();
+            this.txtbxusername = new System.Windows.Forms.TextBox();
+            this.btnaction = new System.Windows.Forms.Button();
             this.btnsignup = new System.Windows.Forms.Button();
             this.lblinfoacc = new System.Windows.Forms.Label();
-            this.btnaction = new System.Windows.Forms.Button();
             this.btnlogin = new System.Windows.Forms.Button();
-            this.txtbxusername = new System.Windows.Forms.TextBox();
-            this.lblpassword = new System.Windows.Forms.Label();
-            this.lblusername = new System.Windows.Forms.Label();
-            this.groupBoxactions = new System.Windows.Forms.GroupBox();
             this.groupBoxstartup.SuspendLayout();
             this.groupBoxactions.SuspendLayout();
             this.SuspendLayout();
@@ -95,6 +95,21 @@
             this.groupBoxstartup.TabStop = false;
             this.groupBoxstartup.Visible = false;
             // 
+            // groupBoxactions
+            // 
+            this.groupBoxactions.Controls.Add(this.txtbxpassword);
+            this.groupBoxactions.Controls.Add(this.btnshow);
+            this.groupBoxactions.Controls.Add(this.lblusername);
+            this.groupBoxactions.Controls.Add(this.lblpassword);
+            this.groupBoxactions.Controls.Add(this.txtbxusername);
+            this.groupBoxactions.Controls.Add(this.btnaction);
+            this.groupBoxactions.Location = new System.Drawing.Point(16, 96);
+            this.groupBoxactions.Name = "groupBoxactions";
+            this.groupBoxactions.Size = new System.Drawing.Size(323, 164);
+            this.groupBoxactions.TabIndex = 10;
+            this.groupBoxactions.TabStop = false;
+            this.groupBoxactions.Visible = false;
+            // 
             // txtbxpassword
             // 
             this.txtbxpassword.Font = new System.Drawing.Font("Leelawadee UI", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -115,6 +130,49 @@
             this.btnshow.TabIndex = 9;
             this.btnshow.UseVisualStyleBackColor = true;
             this.btnshow.Click += new System.EventHandler(this.btnshow_Click);
+            // 
+            // lblusername
+            // 
+            this.lblusername.AutoSize = true;
+            this.lblusername.Font = new System.Drawing.Font("Leelawadee UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblusername.ForeColor = System.Drawing.Color.White;
+            this.lblusername.Location = new System.Drawing.Point(6, 37);
+            this.lblusername.Name = "lblusername";
+            this.lblusername.Size = new System.Drawing.Size(88, 21);
+            this.lblusername.TabIndex = 0;
+            this.lblusername.Text = "Username :";
+            // 
+            // lblpassword
+            // 
+            this.lblpassword.AutoSize = true;
+            this.lblpassword.Font = new System.Drawing.Font("Leelawadee UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpassword.ForeColor = System.Drawing.Color.White;
+            this.lblpassword.Location = new System.Drawing.Point(6, 78);
+            this.lblpassword.Name = "lblpassword";
+            this.lblpassword.Size = new System.Drawing.Size(84, 21);
+            this.lblpassword.TabIndex = 1;
+            this.lblpassword.Text = "Password :";
+            // 
+            // txtbxusername
+            // 
+            this.txtbxusername.Font = new System.Drawing.Font("Leelawadee UI", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtbxusername.Location = new System.Drawing.Point(100, 34);
+            this.txtbxusername.MaxLength = 20;
+            this.txtbxusername.Name = "txtbxusername";
+            this.txtbxusername.Size = new System.Drawing.Size(165, 29);
+            this.txtbxusername.TabIndex = 2;
+            // 
+            // btnaction
+            // 
+            this.btnaction.BackColor = System.Drawing.Color.White;
+            this.btnaction.Font = new System.Drawing.Font("Leelawadee UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnaction.Location = new System.Drawing.Point(100, 120);
+            this.btnaction.Name = "btnaction";
+            this.btnaction.Size = new System.Drawing.Size(101, 29);
+            this.btnaction.TabIndex = 6;
+            this.btnaction.Text = "Log in";
+            this.btnaction.UseVisualStyleBackColor = false;
+            this.btnaction.Click += new System.EventHandler(this.btnaction_Click);
             // 
             // btnsignup
             // 
@@ -139,18 +197,6 @@
             this.lblinfoacc.TabIndex = 7;
             this.lblinfoacc.Text = "0";
             // 
-            // btnaction
-            // 
-            this.btnaction.BackColor = System.Drawing.Color.White;
-            this.btnaction.Font = new System.Drawing.Font("Leelawadee UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnaction.Location = new System.Drawing.Point(100, 120);
-            this.btnaction.Name = "btnaction";
-            this.btnaction.Size = new System.Drawing.Size(101, 29);
-            this.btnaction.TabIndex = 6;
-            this.btnaction.Text = "Log in";
-            this.btnaction.UseVisualStyleBackColor = false;
-            this.btnaction.Click += new System.EventHandler(this.btnaction_Click);
-            // 
             // btnlogin
             // 
             this.btnlogin.BackColor = System.Drawing.Color.White;
@@ -163,57 +209,11 @@
             this.btnlogin.UseVisualStyleBackColor = false;
             this.btnlogin.Click += new System.EventHandler(this.btnlogin_Click);
             // 
-            // txtbxusername
-            // 
-            this.txtbxusername.Font = new System.Drawing.Font("Leelawadee UI", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtbxusername.Location = new System.Drawing.Point(100, 34);
-            this.txtbxusername.MaxLength = 20;
-            this.txtbxusername.Name = "txtbxusername";
-            this.txtbxusername.Size = new System.Drawing.Size(165, 29);
-            this.txtbxusername.TabIndex = 2;
-            // 
-            // lblpassword
-            // 
-            this.lblpassword.AutoSize = true;
-            this.lblpassword.Font = new System.Drawing.Font("Leelawadee UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblpassword.ForeColor = System.Drawing.Color.White;
-            this.lblpassword.Location = new System.Drawing.Point(6, 78);
-            this.lblpassword.Name = "lblpassword";
-            this.lblpassword.Size = new System.Drawing.Size(84, 21);
-            this.lblpassword.TabIndex = 1;
-            this.lblpassword.Text = "Password :";
-            // 
-            // lblusername
-            // 
-            this.lblusername.AutoSize = true;
-            this.lblusername.Font = new System.Drawing.Font("Leelawadee UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblusername.ForeColor = System.Drawing.Color.White;
-            this.lblusername.Location = new System.Drawing.Point(6, 37);
-            this.lblusername.Name = "lblusername";
-            this.lblusername.Size = new System.Drawing.Size(88, 21);
-            this.lblusername.TabIndex = 0;
-            this.lblusername.Text = "Username :";
-            // 
-            // groupBoxactions
-            // 
-            this.groupBoxactions.Controls.Add(this.txtbxpassword);
-            this.groupBoxactions.Controls.Add(this.btnshow);
-            this.groupBoxactions.Controls.Add(this.lblusername);
-            this.groupBoxactions.Controls.Add(this.lblpassword);
-            this.groupBoxactions.Controls.Add(this.txtbxusername);
-            this.groupBoxactions.Controls.Add(this.btnaction);
-            this.groupBoxactions.Location = new System.Drawing.Point(16, 96);
-            this.groupBoxactions.Name = "groupBoxactions";
-            this.groupBoxactions.Size = new System.Drawing.Size(323, 164);
-            this.groupBoxactions.TabIndex = 10;
-            this.groupBoxactions.TabStop = false;
-            this.groupBoxactions.Visible = false;
-            // 
             // FoodDeliveryPlatform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.BackColor = System.Drawing.Color.Red;
             this.ClientSize = new System.Drawing.Size(800, 508);
             this.Controls.Add(this.groupBoxstartup);
             this.Controls.Add(this.btnbuniness);

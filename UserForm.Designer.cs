@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.groupBoxgetloc = new System.Windows.Forms.GroupBox();
-            this.txtbxlocation = new System.Windows.Forms.TextBox();
-            this.lblloc = new System.Windows.Forms.Label();
             this.btnsave = new System.Windows.Forms.Button();
+            this.lblloc = new System.Windows.Forms.Label();
+            this.txtbxlocation = new System.Windows.Forms.TextBox();
             this.comboBoxrestourants = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBoxgetloc.SuspendLayout();
@@ -49,15 +49,16 @@
             this.groupBoxgetloc.TabStop = false;
             this.groupBoxgetloc.Visible = false;
             // 
-            // txtbxlocation
+            // btnsave
             // 
-            this.txtbxlocation.Font = new System.Drawing.Font("Leelawadee UI", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtbxlocation.Location = new System.Drawing.Point(104, 11);
-            this.txtbxlocation.MaxLength = 200;
-            this.txtbxlocation.Multiline = true;
-            this.txtbxlocation.Name = "txtbxlocation";
-            this.txtbxlocation.Size = new System.Drawing.Size(216, 124);
-            this.txtbxlocation.TabIndex = 3;
+            this.btnsave.Font = new System.Drawing.Font("Leelawadee UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnsave.Location = new System.Drawing.Point(10, 81);
+            this.btnsave.Name = "btnsave";
+            this.btnsave.Size = new System.Drawing.Size(88, 40);
+            this.btnsave.TabIndex = 1;
+            this.btnsave.Text = "Save";
+            this.btnsave.UseVisualStyleBackColor = true;
+            this.btnsave.Click += new System.EventHandler(this.btnsave_Click);
             // 
             // lblloc
             // 
@@ -70,16 +71,15 @@
             this.lblloc.TabIndex = 4;
             this.lblloc.Text = "Location :";
             // 
-            // btnsave
+            // txtbxlocation
             // 
-            this.btnsave.Font = new System.Drawing.Font("Leelawadee UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnsave.Location = new System.Drawing.Point(10, 81);
-            this.btnsave.Name = "btnsave";
-            this.btnsave.Size = new System.Drawing.Size(88, 40);
-            this.btnsave.TabIndex = 1;
-            this.btnsave.Text = "Save";
-            this.btnsave.UseVisualStyleBackColor = true;
-            this.btnsave.Click += new System.EventHandler(this.btnsave_Click);
+            this.txtbxlocation.Font = new System.Drawing.Font("Leelawadee UI", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtbxlocation.Location = new System.Drawing.Point(104, 11);
+            this.txtbxlocation.MaxLength = 200;
+            this.txtbxlocation.Multiline = true;
+            this.txtbxlocation.Name = "txtbxlocation";
+            this.txtbxlocation.Size = new System.Drawing.Size(216, 124);
+            this.txtbxlocation.TabIndex = 3;
             // 
             // comboBoxrestourants
             // 
@@ -94,9 +94,10 @@
             // 
             // panel1
             // 
-            this.panel1.Location = new System.Drawing.Point(328, 27);
+            this.panel1.AutoScroll = true;
+            this.panel1.Location = new System.Drawing.Point(217, 1);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(329, 519);
+            this.panel1.Size = new System.Drawing.Size(559, 611);
             this.panel1.TabIndex = 2;
             // 
             // UserForm
