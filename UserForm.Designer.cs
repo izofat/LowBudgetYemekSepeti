@@ -34,6 +34,7 @@
             this.txtbxlocation = new System.Windows.Forms.TextBox();
             this.comboBoxrestourants = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnviewbucket = new System.Windows.Forms.Button();
             this.groupBoxgetloc.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -85,7 +86,7 @@
             // 
             this.comboBoxrestourants.Font = new System.Drawing.Font("Arial Black", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxrestourants.FormattingEnabled = true;
-            this.comboBoxrestourants.Location = new System.Drawing.Point(12, 12);
+            this.comboBoxrestourants.Location = new System.Drawing.Point(12, 60);
             this.comboBoxrestourants.Name = "comboBoxrestourants";
             this.comboBoxrestourants.Size = new System.Drawing.Size(199, 35);
             this.comboBoxrestourants.TabIndex = 1;
@@ -100,12 +101,25 @@
             this.panel1.Size = new System.Drawing.Size(559, 611);
             this.panel1.TabIndex = 2;
             // 
+            // btnviewbucket
+            // 
+            this.btnviewbucket.Font = new System.Drawing.Font("Leelawadee UI", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnviewbucket.Location = new System.Drawing.Point(12, 248);
+            this.btnviewbucket.Name = "btnviewbucket";
+            this.btnviewbucket.Size = new System.Drawing.Size(180, 35);
+            this.btnviewbucket.TabIndex = 3;
+            this.btnviewbucket.Text = "View Bucket";
+            this.btnviewbucket.UseVisualStyleBackColor = true;
+            this.btnviewbucket.Visible = false;
+            this.btnviewbucket.Click += new System.EventHandler(this.btnviewbucket_Click);
+            // 
             // UserForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Red;
             this.ClientSize = new System.Drawing.Size(1109, 613);
+            this.Controls.Add(this.btnviewbucket);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.comboBoxrestourants);
             this.Controls.Add(this.groupBoxgetloc);
@@ -126,5 +140,6 @@
         private System.Windows.Forms.Button btnsave;
         private System.Windows.Forms.ComboBox comboBoxrestourants;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button btnviewbucket;
     }
 }

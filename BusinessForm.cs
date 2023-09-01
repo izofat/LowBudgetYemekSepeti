@@ -112,7 +112,7 @@ namespace Food_Delivery_Platform
             txtbxprice.Text = productinfo[2];
             comboBoxstatus.Text = productinfo[3];
             txtbximageloc.Text = productinfo[4];
-            picturebxproduct.ImageLocation = txtbximageloc.Text;
+            picturebxproduct.ImageLocation = txtbximageloc.Text.ToString();
         }
 
         private void btnadd_Click(object sender, EventArgs e)
