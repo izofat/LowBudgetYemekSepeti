@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Net.Http.Headers;
+using System.Reflection;
 using System.Reflection.Emit;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -75,7 +76,7 @@ namespace Food_Delivery_Platform
         List<string> imagelocation;
         private void comboBoxrestourants_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            panel1.Controls.Clear();
             string restourantname = comboBoxrestourants.SelectedItem.ToString();                  
             usaction.ShowProducts(restourantname, out count, out productname, out ingredients, out price, out status, out imagelocation);           
             int x = 29;
@@ -168,7 +169,8 @@ namespace Food_Delivery_Platform
             btnviewbucket.Visible = true;
             MessageBox.Show("Product added to the bucket");
         }
-       
+        int[] willuse;
+        string[] productsindex;
         private void btnviewbucket_Click(object sender, EventArgs e)
         {             
             int[] countsofproducts = new int[count];
@@ -185,17 +187,37 @@ namespace Food_Delivery_Platform
                     pricesofproducts[index] += Convert.ToInt32(price[index]);
                 }
             }
+            willuse = new int[count];
+            int n = 0;
+            foreach (int b in countsofproducts)
+            {
+                willuse[n] = b;
+                n++;
+            }
+            int buttoncount = 0;
+            productsindex = new string[count];
+            for (int z  =  0; z < count; z++)
+            {
+                productsindex[z] = z.ToString() + "," + countsofproducts[z].ToString();
+                if (countsofproducts[z] != 0)
+                {
+                    buttoncount++;
+                }
+                
+            }           
             int x = 29;
             int y = 42;
             int xl = 288;
             int u = 1;            
             int a = 0;
+            int q = 0;
+            Button[] newbtn = new Button[buttoncount];
             foreach (int m in countsofproducts)
             {
                 int yl = y;
                 if (m != 0)
-                {                   
-                    
+                {
+                    string newq = productsindex[q];
                     PictureBox picturebox = new PictureBox();
                     picturebox.Name = "picturebx" + a.ToString();
                     picturebox.ImageLocation = imagelocation[Array.IndexOf(countsofproducts,m)];
@@ -204,18 +226,18 @@ namespace Food_Delivery_Platform
                     picturebox.SizeMode = PictureBoxSizeMode.StretchImage;
                     picturebox.Size = new Size(243, 191);
                     panel1.Controls.Add(picturebox);
-                    
                     //
-                    Button newbtn = new Button();
-                    newbtn.Name = "btnedit" + a.ToString();
-                    newbtn.Size = new Size(88, 49);
-                    newbtn.Location = new Point(xl, y + 132);
-                    newbtn.Text = "Edit Product";
-                    newbtn.Font = new System.Drawing.Font("Arial Black", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                    newbtn.ForeColor = System.Drawing.Color.Black;
-                    newbtn.BackColor = System.Drawing.Color.White;
-                    newbtn.Click += (s, ev) => Button_ClickEdit(s, ev , Array.IndexOf(countsofproducts, m));
-                    panel1.Controls.Add(newbtn);
+                    newbtn[a] = new Button();
+                    newbtn[a].Name = "btnedit" + a.ToString();
+                    newbtn[a].Size = new Size(88, 49);
+                    newbtn[a].Location = new Point(xl, y + 132);
+                    newbtn[a].Text = "Edit Product";
+                    newbtn[a].Font = new System.Drawing.Font("Arial Black", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                    newbtn[a].ForeColor = System.Drawing.Color.Black;
+                    newbtn[a].BackColor = System.Drawing.Color.White;
+                    newbtn[a].Click += (s, ev) => Button_ClickEdit(s, ev , newq );
+                    label1.Text += q.ToString();
+                    panel1.Controls.Add(newbtn[a]);
                     y += 275;
                     for (int k = 0; k < 4; k++)
                     {
@@ -292,12 +314,162 @@ namespace Food_Delivery_Platform
                     a++;
                 }
                 countsofproducts[Array.IndexOf(countsofproducts, m)] = 0;
+                q++;
             }
         }
 
-        private void Button_ClickEdit(object sender , EventArgs e , int index)
+
+        int editcount;
+        private void Button_ClickEdit(object sender , EventArgs e , string inq )
+        {
+            int index = Convert.ToInt32(inq.Substring(0, 1));
+            int countofproduct = Convert.ToInt32(inq.Substring(2,1));
+            editcount = countofproduct;
+            panel1.Controls.Clear();
+            label1.Text = index.ToString();
+            //
+            PictureBox pictureboxedit = new PictureBox();
+            pictureboxedit.Name = "picturebxedit";
+            pictureboxedit.Size = new Size(210, 185);
+            pictureboxedit.ImageLocation = imagelocation[index];
+            pictureboxedit.Location = new Point(38, 26);
+            pictureboxedit.SizeMode = PictureBoxSizeMode.StretchImage;
+            panel1.Controls.Add(pictureboxedit);
+            //
+            System.Windows.Forms.Label labelproductname = new System.Windows.Forms.Label();
+            labelproductname.Name = "lblproductname";
+            labelproductname.Text = productname[index];
+            labelproductname.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            labelproductname.ForeColor = System.Drawing.Color.Black;
+            labelproductname.AutoSize = true;
+            labelproductname.Location = new Point(281, 26);
+            panel1.Controls.Add(labelproductname);
+            //
+            System.Windows.Forms.Label labelcount = new System.Windows.Forms.Label();
+            labelcount.Name = "lblcount";
+            labelcount.Text = "Count : "+ countofproduct.ToString();
+            labelcount.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            labelcount.ForeColor = System.Drawing.Color.Black;
+            labelcount.AutoSize = true;
+            labelcount.Location = new Point(281, 108);
+            panel1.Controls.Add(labelcount);
+            // 
+            Button buttonplus = new Button();
+            buttonplus.Name = "buttonplus";
+            buttonplus.Text = "+";
+            buttonplus.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            buttonplus.ForeColor = System.Drawing.Color.Black;
+            buttonplus.BackColor = System.Drawing.Color.White;
+            buttonplus.Size = new Size(43,26);
+            buttonplus.Location = new Point(370,108);
+            buttonplus.Click += (s, ev) => CountChanged(s, ev, "+" , index);
+            panel1.Controls.Add(buttonplus);
+            //
+            Button buttonminus = new Button();
+            buttonminus.Name = "buttonminus";
+            buttonminus.Text = "-";
+            buttonminus.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            buttonminus.ForeColor = System.Drawing.Color.Black;
+            buttonminus.BackColor = System.Drawing.Color.White;
+            buttonminus.Size = new Size(43, 26);
+            buttonminus.Location = new Point(419, 108);
+            buttonminus.Click += (s, ev) => CountChanged(s, ev, "-" , index);
+            panel1.Controls.Add(buttonminus);
+            //
+            Button buttonset = new Button();
+            buttonset.Name = "buttonset";
+            buttonset.Text = "Set";
+            buttonset.Font = new System.Drawing.Font("Arial Black", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            buttonset.ForeColor = System.Drawing.Color.Black;
+            buttonset.BackColor = System.Drawing.Color.White;
+            buttonset.Size = new Size(78, 39);
+            buttonset.Location = new Point(388, 323);
+            buttonset.Click += (s, ev) => CountChanged(s, ev, "-", index);
+            panel1.Controls.Add(buttonset);
+
+            //
+            System.Windows.Forms.Label labelprice = new System.Windows.Forms.Label();
+            labelprice.Name = "lblprice0";
+            labelprice.Text =  "Price : "+ (Convert.ToInt32(price[index]) * count).ToString();
+            labelprice.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            labelprice.ForeColor = System.Drawing.Color.Black;
+            labelprice.AutoSize = true;
+            labelprice.Location = new Point(281, 198);
+            panel1.Controls.Add(labelprice);
+            //
+            int ingredientcount = 1;
+            foreach (char letter in ingredients[index])
+            {
+                if (letter.ToString() == ",")
+                {
+                    ingredientcount++;
+                }
+            }
+            CheckBox[] checkbxingredient = new  CheckBox[ingredientcount];
+            int i = 0;
+            int y = 247;
+            int x = 25;
+            string ingredient = "";
+            foreach(char letter in ingredients[index])
+            {                
+                if (letter.ToString() != ",")
+                {
+                    ingredient += letter;                    
+                }
+                else
+                {
+                    checkbxingredient[i] = new CheckBox();
+                    checkbxingredient[i].Text = ingredient;
+                    checkbxingredient[i].Name = "checkbx" + i.ToString();
+                    checkbxingredient[i].Font = new System.Drawing.Font("Arial Black", 11.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                    checkbxingredient[i].ForeColor = System.Drawing.Color.Black;
+                    checkbxingredient[i].AutoSize = true;
+                    checkbxingredient[i].Checked = true;
+                    checkbxingredient[i].Location = new Point(x, y);                   
+                    panel1.Controls.Add(checkbxingredient[i]);
+                    ingredient = "";
+                    y += 32;
+                    i++;
+                }                
+            }
+        }
+        private void CountChanged(object sender , EventArgs e , string action , int index)
         {
             
+            if (action == "-")
+            {
+                editcount--;
+            }
+            else if ( action == "+")
+            {
+                editcount++;
+            }
+            System.Windows.Forms.Label labelcount = new System.Windows.Forms.Label();
+            panel1.Controls.Remove(labelcount);
+            labelcount.Name = "lblcount";
+            labelcount.Text = "Count : " + editcount.ToString();
+            labelcount.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            labelcount.ForeColor = System.Drawing.Color.Black;
+            labelcount.AutoSize = true;
+            labelcount.Location = new Point(281, 108);
+            panel1.Controls.Add(labelcount);
+            labelcount.BringToFront();
+            //
+            System.Windows.Forms.Label labelprice = new System.Windows.Forms.Label();
+            panel1.Controls.Remove(labelprice);
+            labelprice.Name = "lblprice0";
+            labelprice.Text = "Price :  " + (Convert.ToInt32(price[index]) * editcount).ToString();
+            labelprice.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            labelprice.ForeColor = System.Drawing.Color.Black;
+            labelprice.AutoSize = true;
+            labelprice.Location = new Point(281, 198);
+            panel1.Controls.Add(labelprice);
+            labelprice.BringToFront();
+        }
+
+        private void ProductChanged(object sender , EventArgs e , int index )
+        {
+
         }
     }
 }
