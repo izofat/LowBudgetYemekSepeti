@@ -169,7 +169,7 @@ namespace Food_Delivery_Platform
             btnviewbucket.Visible = true;
             MessageBox.Show("Product added to the bucket");
         }
-        int[] willuse;
+        List<int> willuse = new List<int>();
         string[] productsindex;
         private void btnviewbucket_Click(object sender, EventArgs e)
         {             
@@ -186,14 +186,20 @@ namespace Food_Delivery_Platform
                     countsofproducts[index]++;
                     pricesofproducts[index] += Convert.ToInt32(price[index]);
                 }
-            }
-            willuse = new int[count];
-            int n = 0;
-            foreach (int b in countsofproducts)
+            }            
+            int h = 0;
+            if (h == 0)
             {
-                willuse[n] = b;
-                n++;
+                
+                
+                foreach (int c in countsofproducts)
+                {
+
+                    willuse.Add(c);
+                }
+                h++;
             }
+            
             int buttoncount = 0;
             productsindex = new string[count];
             for (int z  =  0; z < count; z++)
@@ -220,8 +226,7 @@ namespace Food_Delivery_Platform
                     string newq = productsindex[q];
                     PictureBox picturebox = new PictureBox();
                     picturebox.Name = "picturebx" + a.ToString();
-                    picturebox.ImageLocation = imagelocation[Array.IndexOf(countsofproducts,m)];
-                    
+                    picturebox.ImageLocation = imagelocation[Array.IndexOf(countsofproducts,m)];                    
                     picturebox.Location = new Point(x, y);
                     picturebox.SizeMode = PictureBoxSizeMode.StretchImage;
                     picturebox.Size = new Size(243, 191);
@@ -236,7 +241,7 @@ namespace Food_Delivery_Platform
                     newbtn[a].ForeColor = System.Drawing.Color.Black;
                     newbtn[a].BackColor = System.Drawing.Color.White;
                     newbtn[a].Click += (s, ev) => Button_ClickEdit(s, ev , newq );
-                    label1.Text += q.ToString();
+                    
                     panel1.Controls.Add(newbtn[a]);
                     y += 275;
                     for (int k = 0; k < 4; k++)
@@ -295,8 +300,11 @@ namespace Food_Delivery_Platform
                         u++;
                     }
                     System.Windows.Forms.Label newlabelcount = new System.Windows.Forms.Label();
+                    panel1.Controls.Remove(newlabelcount);
+                    int newcount = willuse[q];
+                    label1.Text += willuse[q];
                     newlabelcount.Name = "lblcount" + a.ToString();
-                    newlabelcount.Text = "Count : " + m.ToString();
+                    newlabelcount.Text = "Count : " + newcount.ToString();
                     newlabelcount.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                     newlabelcount.ForeColor = System.Drawing.Color.Black;
                     newlabelcount.Location = new Point(xl +100 , yl - 90);
@@ -304,8 +312,10 @@ namespace Food_Delivery_Platform
                     panel1.Controls.Add(newlabelcount);
                     ////
                     System.Windows.Forms.Label newlabelprice = new System.Windows.Forms.Label();
+                    panel1.Controls.Remove(newlabelprice);
+                    
                     newlabelprice.Name = "lblprice" + a.ToString();
-                    newlabelprice.Text = "Price : " + pricesofproducts[Array.IndexOf(countsofproducts, m)];
+                    newlabelprice.Text = "Price : " + Convert.ToInt32(price[q]) * newcount;
                     newlabelprice.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                     newlabelprice.ForeColor = System.Drawing.Color.Black;
                     newlabelprice.Location = new Point(xl + 100, yl - 60);
@@ -326,7 +336,7 @@ namespace Food_Delivery_Platform
             int countofproduct = Convert.ToInt32(inq.Substring(2,1));
             editcount = countofproduct;
             panel1.Controls.Clear();
-            label1.Text = index.ToString();
+            
             //
             PictureBox pictureboxedit = new PictureBox();
             pictureboxedit.Name = "picturebxedit";
@@ -347,7 +357,7 @@ namespace Food_Delivery_Platform
             //
             System.Windows.Forms.Label labelcount = new System.Windows.Forms.Label();
             labelcount.Name = "lblcount";
-            labelcount.Text = "Count : "+ countofproduct.ToString();
+            labelcount.Text = "Count : "+ willuse[index].ToString();
             labelcount.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             labelcount.ForeColor = System.Drawing.Color.Black;
             labelcount.AutoSize = true;
@@ -376,21 +386,12 @@ namespace Food_Delivery_Platform
             buttonminus.Click += (s, ev) => CountChanged(s, ev, "-" , index);
             panel1.Controls.Add(buttonminus);
             //
-            Button buttonset = new Button();
-            buttonset.Name = "buttonset";
-            buttonset.Text = "Set";
-            buttonset.Font = new System.Drawing.Font("Arial Black", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            buttonset.ForeColor = System.Drawing.Color.Black;
-            buttonset.BackColor = System.Drawing.Color.White;
-            buttonset.Size = new Size(78, 39);
-            buttonset.Location = new Point(388, 323);
-            buttonset.Click += (s, ev) => CountChanged(s, ev, "-", index);
-            panel1.Controls.Add(buttonset);
+            
 
             //
             System.Windows.Forms.Label labelprice = new System.Windows.Forms.Label();
             labelprice.Name = "lblprice0";
-            labelprice.Text =  "Price : "+ (Convert.ToInt32(price[index]) * count).ToString();
+            labelprice.Text =  "Price : "+ (Convert.ToInt32(price[index]) * willuse[index]).ToString();
             labelprice.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             labelprice.ForeColor = System.Drawing.Color.Black;
             labelprice.AutoSize = true;
@@ -405,49 +406,75 @@ namespace Food_Delivery_Platform
                     ingredientcount++;
                 }
             }
-            CheckBox[] checkbxingredient = new  CheckBox[ingredientcount];
+            List<CheckBox> checkbxingredient = new List<CheckBox>();
             int i = 0;
             int y = 247;
             int x = 25;
             string ingredient = "";
             foreach(char letter in ingredients[index])
             {                
-                if (letter.ToString() != ",")
+                if (letter.ToString() != "," )
                 {
-                    ingredient += letter;                    
+                    ingredient += letter;         
+                    
                 }
-                else
+                else 
                 {
-                    checkbxingredient[i] = new CheckBox();
-                    checkbxingredient[i].Text = ingredient;
-                    checkbxingredient[i].Name = "checkbx" + i.ToString();
-                    checkbxingredient[i].Font = new System.Drawing.Font("Arial Black", 11.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                    checkbxingredient[i].ForeColor = System.Drawing.Color.Black;
-                    checkbxingredient[i].AutoSize = true;
-                    checkbxingredient[i].Checked = true;
-                    checkbxingredient[i].Location = new Point(x, y);                   
-                    panel1.Controls.Add(checkbxingredient[i]);
+                    CheckBox chcbx = new CheckBox();
+                    chcbx.Text = ingredient;
+                    chcbx.Name = "checkbx" + i.ToString();
+                    chcbx.Font = new System.Drawing.Font("Arial Black", 11.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                    chcbx.ForeColor = System.Drawing.Color.Black;
+                    chcbx.AutoSize = true;
+                    chcbx.Checked = true;
+                    chcbx.Location = new Point(x, y);
+                    checkbxingredient.Add(chcbx);
+                    panel1.Controls.Add(chcbx);
                     ingredient = "";
                     y += 32;
                     i++;
-                }                
+                }
+                
             }
+            CheckBox chcbxm = new CheckBox();
+            chcbxm.Text = ingredient;
+            chcbxm.Name = "checkbx" + i.ToString();
+            chcbxm.Font = new System.Drawing.Font("Arial Black", 11.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            chcbxm.ForeColor = System.Drawing.Color.Black;
+            chcbxm.AutoSize = true;
+            chcbxm.Checked = true;
+            chcbxm.Location = new Point(x, y);
+            checkbxingredient.Add(chcbxm);
+            panel1.Controls.Add(chcbxm);
+            //
+            Button buttonset = new Button();
+            buttonset.Name = "buttonset";
+            buttonset.Text = "Set";
+            buttonset.Font = new System.Drawing.Font("Arial Black", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            buttonset.ForeColor = System.Drawing.Color.Black;
+            buttonset.BackColor = System.Drawing.Color.White;
+            buttonset.Size = new Size(78, 39);
+            buttonset.Location = new Point(388, 323);
+            buttonset.Click += (s, ev) => ProductChanged(s, ev, index , checkbxingredient);
+            panel1.Controls.Add(buttonset);
         }
-        private void CountChanged(object sender , EventArgs e , string action , int index)
+        private void CountChanged(object sender , EventArgs e , string action , int index )
         {
             
-            if (action == "-")
+            if (action == "-" && editcount > 0)
             {
-                editcount--;
+                willuse[index]--;
+                label1.Text = willuse[index].ToString();
             }
-            else if ( action == "+")
+            else if ( action == "+" && editcount < 9)
             {
-                editcount++;
+                willuse[index]++;
+                label1.Text = willuse[index].ToString();
             }
             System.Windows.Forms.Label labelcount = new System.Windows.Forms.Label();
             panel1.Controls.Remove(labelcount);
             labelcount.Name = "lblcount";
-            labelcount.Text = "Count : " + editcount.ToString();
+            labelcount.Text = "Count : " + willuse[index].ToString();
             labelcount.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             labelcount.ForeColor = System.Drawing.Color.Black;
             labelcount.AutoSize = true;
@@ -458,7 +485,7 @@ namespace Food_Delivery_Platform
             System.Windows.Forms.Label labelprice = new System.Windows.Forms.Label();
             panel1.Controls.Remove(labelprice);
             labelprice.Name = "lblprice0";
-            labelprice.Text = "Price :  " + (Convert.ToInt32(price[index]) * editcount).ToString();
+            labelprice.Text = "Price :  " + (Convert.ToInt32(price[index]) * willuse[index]).ToString();
             labelprice.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             labelprice.ForeColor = System.Drawing.Color.Black;
             labelprice.AutoSize = true;
@@ -467,9 +494,28 @@ namespace Food_Delivery_Platform
             labelprice.BringToFront();
         }
 
-        private void ProductChanged(object sender , EventArgs e , int index )
-        {
+        private void ProductChanged(object sender , EventArgs e , int index , List<CheckBox> checkBoxes)
+        {            
+            string newingredients = "";
+            foreach (CheckBox checkbx in checkBoxes)
+            {
+                if (checkbx.Checked == true)
+                {
+                    newingredients += checkbx.Text + ",";
+                }
+            }
+            newingredients = newingredients.Substring(0, newingredients.Length - 1);
+            ingredients[index] = newingredients;            
+            btnviewbucket.PerformClick();
+        }
 
+        private void btnorder_Click(object sender, EventArgs e)
+        {
+            //get index
+            // get count of product willuse 
+            // get productname
+            // get price 
+            // open a order in database show that in businass form
         }
     }
 }
