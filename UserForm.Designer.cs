@@ -36,7 +36,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnviewbucket = new System.Windows.Forms.Button();
             this.btnorder = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.btnvieworders = new System.Windows.Forms.Button();
             this.groupBoxgetloc.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -118,23 +118,24 @@
             // btnorder
             // 
             this.btnorder.Font = new System.Drawing.Font("Arial Black", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnorder.Location = new System.Drawing.Point(803, 308);
+            this.btnorder.Location = new System.Drawing.Point(840, 299);
             this.btnorder.Name = "btnorder";
-            this.btnorder.Size = new System.Drawing.Size(109, 58);
+            this.btnorder.Size = new System.Drawing.Size(108, 60);
             this.btnorder.TabIndex = 4;
-            this.btnorder.Text = "ORDER";
+            this.btnorder.Text = "Order";
             this.btnorder.UseVisualStyleBackColor = true;
             this.btnorder.Visible = false;
-            this.btnorder.Click += new System.EventHandler(this.btnorder_Click);
             // 
-            // label1
+            // btnvieworders
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(88, 383);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "label1";
+            this.btnvieworders.Font = new System.Drawing.Font("Leelawadee UI", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnvieworders.Location = new System.Drawing.Point(12, 299);
+            this.btnvieworders.Name = "btnvieworders";
+            this.btnvieworders.Size = new System.Drawing.Size(180, 35);
+            this.btnvieworders.TabIndex = 5;
+            this.btnvieworders.Text = "View Orders";
+            this.btnvieworders.UseVisualStyleBackColor = true;
+            this.btnvieworders.Click += new System.EventHandler(this.btnvieworders_Click);
             // 
             // UserForm
             // 
@@ -143,7 +144,7 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.Red;
             this.ClientSize = new System.Drawing.Size(1109, 613);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.btnvieworders);
             this.Controls.Add(this.btnorder);
             this.Controls.Add(this.btnviewbucket);
             this.Controls.Add(this.panel1);
@@ -155,7 +156,6 @@
             this.groupBoxgetloc.ResumeLayout(false);
             this.groupBoxgetloc.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -169,6 +169,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnviewbucket;
         private System.Windows.Forms.Button btnorder;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnvieworders;
     }
 }

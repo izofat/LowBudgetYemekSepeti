@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Net.Http.Headers;
 using System.Reflection;
 using System.Reflection.Emit;
@@ -161,6 +162,7 @@ namespace Food_Delivery_Platform
                 panel1.Controls.Add(newbtn);               
             }
         }
+        
         List<string> order = new List<string>();
         private void Button_ClickOrder (object sender, EventArgs e, string buttonname , List<string> productnames , int count)
         {
@@ -171,15 +173,17 @@ namespace Food_Delivery_Platform
         }
         List<int> willuse = new List<int>();
         string[] productsindex;
+        int h = 0;
         private void btnviewbucket_Click(object sender, EventArgs e)
         {             
             int[] countsofproducts = new int[count];
             int[] pricesofproducts = new int[count];
-            panel1.Controls.Clear();    
+            panel1.Controls.Clear();
+            int index = -1;
             for (int i = 0; i < order.Count; i++)
             {
                 string element = order[i]; 
-                int index = productname.IndexOf(element);
+                index = productname.IndexOf(element);
 
                 if (index != -1)
                 {
@@ -187,11 +191,9 @@ namespace Food_Delivery_Platform
                     pricesofproducts[index] += Convert.ToInt32(price[index]);
                 }
             }            
-            int h = 0;
+            
             if (h == 0)
-            {
-                
-                
+            {                              
                 foreach (int c in countsofproducts)
                 {
 
@@ -302,7 +304,7 @@ namespace Food_Delivery_Platform
                     System.Windows.Forms.Label newlabelcount = new System.Windows.Forms.Label();
                     panel1.Controls.Remove(newlabelcount);
                     int newcount = willuse[q];
-                    label1.Text += willuse[q];
+                    
                     newlabelcount.Name = "lblcount" + a.ToString();
                     newlabelcount.Text = "Count : " + newcount.ToString();
                     newlabelcount.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -325,7 +327,11 @@ namespace Food_Delivery_Platform
                 }
                 countsofproducts[Array.IndexOf(countsofproducts, m)] = 0;
                 q++;
-            }
+            }            
+            btnorder.Click += (s, ev) => OrderClick(s, ev);
+            btnorder.Visible = true;
+            
+            
         }
 
 
@@ -464,12 +470,16 @@ namespace Food_Delivery_Platform
             if (action == "-" && editcount > 0)
             {
                 willuse[index]--;
-                label1.Text = willuse[index].ToString();
+                
             }
             else if ( action == "+" && editcount < 9)
             {
                 willuse[index]++;
-                label1.Text = willuse[index].ToString();
+                
+            }
+            foreach (int o in willuse)
+            {
+                
             }
             System.Windows.Forms.Label labelcount = new System.Windows.Forms.Label();
             panel1.Controls.Remove(labelcount);
@@ -509,13 +519,113 @@ namespace Food_Delivery_Platform
             btnviewbucket.PerformClick();
         }
 
-        private void btnorder_Click(object sender, EventArgs e)
+        private void OrderClick(object sender , EventArgs e  )
         {
-            //get index
-            // get count of product willuse 
-            // get productname
-            // get price 
-            // open a order in database show that in businass form
+            string orderrestourantname = comboBoxrestourants.Text;
+            string orderedby = localusername;
+            string location = usaction.CheckLocation(localusername);
+            List<string> orderedproducts = new List<string>();
+            List<string> orderedingredients = new List<string>();
+            List<int> orderedcounts = new List<int>();
+            List<int> orderedprices = new List<int>();
+            
+            try
+            {
+                for (int i = 0; i < productname.Count; i++)
+                {
+
+                    if (willuse[i] != 0)
+                    {
+
+                        orderedproducts.Add(productname[i]);
+                        orderedingredients.Add(ingredients[i]);
+                        orderedcounts.Add(willuse[i]);
+                        orderedprices.Add(Convert.ToInt32(price[i]) * willuse[i]);
+                    }
+                    
+                }
+            }
+            catch (Exception)
+            {
+               
+            }           
+            if (usaction.NewOrder(orderrestourantname, orderedproducts,
+                orderedingredients, orderedcounts, orderedprices, orderedby, location) == true)
+            {
+                MessageBox.Show("Order taken successfully");
+                btnorder.Visible = false;
+                h = 0;
+                willuse = new List<int>();
+                panel1.Controls.Clear();
+                btnvieworders.Visible = true;
+            }
+        }
+
+        private void btnvieworders_Click(object sender, EventArgs e)
+        {
+            panel1.Controls.Clear();
+            List<string> orderedproducts;
+            List<int> orderedcounts;
+            List<int> orderedprice;
+            List<string> orderedstatus;
+            usaction.GetOrders(localusername, out orderedproducts, out orderedcounts, out orderedprice, out orderedstatus);
+            int namey = 28;
+            for (int i = 0; i < orderedproducts.Count; i++)
+            {
+                if (orderedstatus[i] != "Delivered")
+                {
+                    System.Windows.Forms.Label labelordername = new System.Windows.Forms.Label();
+                    labelordername.Name = "labelordername" + i.ToString();
+                    labelordername.Text = orderedproducts[i];
+                    labelordername.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                    labelordername.ForeColor = System.Drawing.Color.Black;
+                    labelordername.AutoSize = true;
+                    labelordername.Location = new Point(50, namey);
+                    panel1.Controls.Add(labelordername);
+                    //
+                    System.Windows.Forms.Label labelordercount = new System.Windows.Forms.Label();
+                    labelordercount.Name = "labelordercount" + i.ToString();
+                    labelordercount.Text =  "Count : " + orderedcounts[i].ToString();
+                    labelordercount.Font = new System.Drawing.Font("Arial Black", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                    labelordercount.ForeColor = System.Drawing.Color.Black;
+                    labelordercount.AutoSize = true;
+                    labelordercount.Location = new Point(50, namey + 41);
+                    panel1.Controls.Add(labelordercount);
+                    //
+                    System.Windows.Forms.Label labelorderprice = new System.Windows.Forms.Label();
+                    labelorderprice.Name = "labelorderprice" + i.ToString();
+                    labelorderprice.Text = "Price : " + orderedprice[i].ToString();
+                    labelorderprice.Font = new System.Drawing.Font("Arial Black", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                    labelorderprice.ForeColor = System.Drawing.Color.Black;
+                    labelorderprice.AutoSize = true;
+                    labelorderprice.Location = new Point(150, namey + 41);
+                    panel1.Controls.Add(labelorderprice);
+                    //
+                    System.Windows.Forms.Label labelorderstatus = new System.Windows.Forms.Label();
+                    labelorderstatus.Name = "labelorderstatus" + i.ToString();
+                    labelorderstatus.Text = orderedstatus[i];
+                    labelorderstatus.Font = new System.Drawing.Font("Arial Black", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                    labelorderstatus.ForeColor = System.Drawing.Color.Gray;
+                    labelorderstatus.AutoSize = true;
+                    labelorderstatus.Location = new Point(257, namey + 9);
+                    panel1.Controls.Add(labelorderstatus);
+                    namey += 103;
+                }
+            }
+            int totalprice = 0;
+            foreach (int p in orderedprice)
+            {
+                totalprice += p;
+            }
+            System.Windows.Forms.Label labelordertotalprice = new System.Windows.Forms.Label();
+            labelordertotalprice.Name = "labelordertotal" ;
+            labelordertotalprice.Text = "Total Price : " + totalprice.ToString();
+            labelordertotalprice.Font = new System.Drawing.Font("Arial Black", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            labelordertotalprice.ForeColor = System.Drawing.Color.Black;
+            labelordertotalprice.AutoSize = true;
+            labelordertotalprice.Location = new Point(353, namey +50);
+            panel1.Controls.Add(labelordertotalprice);
         }
     }
+
 }
