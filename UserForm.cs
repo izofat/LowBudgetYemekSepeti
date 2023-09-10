@@ -36,7 +36,10 @@ namespace Food_Delivery_Platform
             List<string> restourants = usaction.ShowRestourants();
             foreach (string restourant in restourants)
             {
-                comboBoxrestourants.Items.Add(restourant);
+                if (usaction.CheckProducts(restourant) != null)
+                {
+                    comboBoxrestourants.Items.Add(restourant);
+                }                
             }           
             if (location == DBNull.Value.ToString())
             {
@@ -572,45 +575,44 @@ namespace Food_Delivery_Platform
             int namey = 28;
             for (int i = 0; i < orderedproducts.Count; i++)
             {
-                if (orderedstatus[i] != "Delivered")
-                {
-                    System.Windows.Forms.Label labelordername = new System.Windows.Forms.Label();
-                    labelordername.Name = "labelordername" + i.ToString();
-                    labelordername.Text = orderedproducts[i];
-                    labelordername.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                    labelordername.ForeColor = System.Drawing.Color.Black;
-                    labelordername.AutoSize = true;
-                    labelordername.Location = new Point(50, namey);
-                    panel1.Controls.Add(labelordername);
-                    //
-                    System.Windows.Forms.Label labelordercount = new System.Windows.Forms.Label();
-                    labelordercount.Name = "labelordercount" + i.ToString();
-                    labelordercount.Text =  "Count : " + orderedcounts[i].ToString();
-                    labelordercount.Font = new System.Drawing.Font("Arial Black", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                    labelordercount.ForeColor = System.Drawing.Color.Black;
-                    labelordercount.AutoSize = true;
-                    labelordercount.Location = new Point(50, namey + 41);
-                    panel1.Controls.Add(labelordercount);
-                    //
-                    System.Windows.Forms.Label labelorderprice = new System.Windows.Forms.Label();
-                    labelorderprice.Name = "labelorderprice" + i.ToString();
-                    labelorderprice.Text = "Price : " + orderedprice[i].ToString();
-                    labelorderprice.Font = new System.Drawing.Font("Arial Black", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                    labelorderprice.ForeColor = System.Drawing.Color.Black;
-                    labelorderprice.AutoSize = true;
-                    labelorderprice.Location = new Point(150, namey + 41);
-                    panel1.Controls.Add(labelorderprice);
-                    //
-                    System.Windows.Forms.Label labelorderstatus = new System.Windows.Forms.Label();
-                    labelorderstatus.Name = "labelorderstatus" + i.ToString();
-                    labelorderstatus.Text = orderedstatus[i];
-                    labelorderstatus.Font = new System.Drawing.Font("Arial Black", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                    labelorderstatus.ForeColor = System.Drawing.Color.Gray;
-                    labelorderstatus.AutoSize = true;
-                    labelorderstatus.Location = new Point(257, namey + 9);
-                    panel1.Controls.Add(labelorderstatus);
-                    namey += 103;
-                }
+
+                System.Windows.Forms.Label labelordername = new System.Windows.Forms.Label();
+                labelordername.Name = "labelordername" + i.ToString();
+                labelordername.Text = orderedproducts[i];
+                labelordername.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                labelordername.ForeColor = System.Drawing.Color.Black;
+                labelordername.AutoSize = true;
+                labelordername.Location = new Point(50, namey);
+                panel1.Controls.Add(labelordername);
+                //
+                System.Windows.Forms.Label labelordercount = new System.Windows.Forms.Label();
+                labelordercount.Name = "labelordercount" + i.ToString();
+                labelordercount.Text = "Count : " + orderedcounts[i].ToString();
+                labelordercount.Font = new System.Drawing.Font("Arial Black", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                labelordercount.ForeColor = System.Drawing.Color.Black;
+                labelordercount.AutoSize = true;
+                labelordercount.Location = new Point(50, namey + 41);
+                panel1.Controls.Add(labelordercount);
+                //
+                System.Windows.Forms.Label labelorderprice = new System.Windows.Forms.Label();
+                labelorderprice.Name = "labelorderprice" + i.ToString();
+                labelorderprice.Text = "Price : " + orderedprice[i].ToString();
+                labelorderprice.Font = new System.Drawing.Font("Arial Black", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                labelorderprice.ForeColor = System.Drawing.Color.Black;
+                labelorderprice.AutoSize = true;
+                labelorderprice.Location = new Point(150, namey + 41);
+                panel1.Controls.Add(labelorderprice);
+                //
+                System.Windows.Forms.Label labelorderstatus = new System.Windows.Forms.Label();
+                labelorderstatus.Name = "labelorderstatus" + i.ToString();
+                labelorderstatus.Text = orderedstatus[i];
+                labelorderstatus.Font = new System.Drawing.Font("Arial Black", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                labelorderstatus.ForeColor = System.Drawing.Color.Gray;
+                labelorderstatus.AutoSize = true;
+                labelorderstatus.Location = new Point(257, namey + 9);
+                panel1.Controls.Add(labelorderstatus);
+                namey += 103;
+
             }
             int totalprice = 0;
             foreach (int p in orderedprice)

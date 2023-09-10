@@ -21,7 +21,9 @@ namespace Food_Delivery_Platform
         string getProductInfo = "SELECT ProductName,Ingredients,Price,Status,ImageLocation FROM @tablename WHERE Productname = @productname";
         string updateProductInfo = "UPDATE @tablename SET ProductName = @productname , Ingredients = @ingredients ,Price = @price , Status = @status , ImageLocation = @imagelocation WHERE Productname = @oldproductname";
         string deleteProduct = "DELETE FROM @tablename WHERE Productname = @productname";
-        
+        string getorders = "SELECT @something FROM Orders WHERE RestourantName = @restourantname";
+        string updatestatus = "UPDATE Orders SET Status = @status WHERE RestourantName = @restourantname AND " +
+                            "OrderedBy = @username AND ProductName = @productname";
         public int GetRestourantId(string username)
         {
             int id = -1;
@@ -228,6 +230,159 @@ namespace Food_Delivery_Platform
             }
             
             return stat;
+        }
+
+        public void GetOrders(string restourantname, out List<string> productnames, out List<int> counts,
+                            out List<int> prices, out List<string> status , out List<string> ingredients ,
+                            out List<string> location , out List<string> orderedby)
+        {
+            productnames = new List<string>();
+            counts = new List<int>();
+            prices = new List<int>();
+            status = new List<string>();
+            ingredients = new List<string>();
+            location = new List<string>();
+            orderedby = new List<string>();
+            using (SqlConnection connection = new SqlConnection(Path))
+            {
+                connection.Open();
+
+                for (int i = 0; i < 7; i++)
+                {
+                    switch (i)
+                    {
+                        case 0:
+                            getorders = "SELECT ProductName FROM Orders WHERE RestourantName = @restourantname";
+                            using (SqlCommand cmd = new SqlCommand(getorders, connection))
+                            {
+                                cmd.Parameters.AddWithValue("@restourantname", restourantname);
+                                using (SqlDataReader reader = cmd.ExecuteReader())
+                                {
+                                    while (reader.Read())
+                                    {
+                                        string thing = reader["ProductName"].ToString();
+                                        productnames.Add(thing);
+                                    }
+                                }
+                            }
+                            break;
+                        case 1:
+                            getorders = "SELECT Count FROM Orders WHERE RestourantName = @restourantname";
+                            using (SqlCommand cmd = new SqlCommand(getorders, connection))
+                            {
+                                cmd.Parameters.AddWithValue("@restourantname", restourantname);
+                                using (SqlDataReader reader = cmd.ExecuteReader())
+                                {
+                                    while (reader.Read())
+                                    {
+                                        int thing = Convert.ToInt32(reader["Count"]);
+                                        counts.Add(thing);
+                                    }
+                                }
+                            }
+                            break;
+                        case 2:
+                            getorders = "SELECT Price FROM Orders WHERE RestourantName = @restourantname";
+                            using (SqlCommand cmd = new SqlCommand(getorders, connection))
+                            {
+                                cmd.Parameters.AddWithValue("@restourantname", restourantname);
+                                using (SqlDataReader reader = cmd.ExecuteReader())
+                                {
+                                    while (reader.Read())
+                                    {
+                                        int thing = Convert.ToInt32(reader["Price"]);
+                                        prices.Add(thing);
+                                    }
+                                }
+                            }
+                            break;
+                        case 3:
+                            getorders = "SELECT Status FROM Orders WHERE RestourantName = @restourantname";
+                            using (SqlCommand cmd = new SqlCommand(getorders, connection))
+                            {
+                                cmd.Parameters.AddWithValue("@restourantname", restourantname);
+                                using (SqlDataReader reader = cmd.ExecuteReader())
+                                {
+                                    while (reader.Read())
+                                    {
+                                        string thing = reader["Status"].ToString();
+                                        status.Add(thing);
+                                    }
+                                }
+                            }
+                            break;
+                        case 4:
+                            getorders = "SELECT Ingredients FROM Orders WHERE RestourantName = @restourantname";
+                            using (SqlCommand cmd = new SqlCommand(getorders, connection))
+                            {
+                                cmd.Parameters.AddWithValue("@restourantname", restourantname);
+                                using (SqlDataReader reader = cmd.ExecuteReader())
+                                {
+                                    while (reader.Read())
+                                    {
+                                        string thing = reader["Ingredients"].ToString();
+                                        ingredients.Add(thing);
+                                    }
+                                }
+                            }
+                            break;
+                        case 5:
+                            getorders = "SELECT Location FROM Orders WHERE RestourantName = @restourantname";
+                            using (SqlCommand cmd = new SqlCommand(getorders, connection))
+                            {
+                                cmd.Parameters.AddWithValue("@restourantname", restourantname);
+                                using (SqlDataReader reader = cmd.ExecuteReader())
+                                {
+                                    while (reader.Read())
+                                    {
+                                        string thing = reader["Location"].ToString();
+                                        location.Add(thing);
+                                    }
+                                }
+                            }
+                            break;
+                        case 6:
+                            getorders = "SELECT OrderedBy FROM Orders WHERE RestourantName = @restourantname";
+                            using (SqlCommand cmd = new SqlCommand(getorders, connection))
+                            {
+                                cmd.Parameters.AddWithValue("@restourantname", restourantname);
+                                using (SqlDataReader reader = cmd.ExecuteReader())
+                                {
+                                    while (reader.Read())
+                                    {
+                                        string thing = reader["OrderedBy"].ToString();
+                                        orderedby.Add(thing);
+                                    }
+                                }
+                            }
+                            break;
+                    }
+                }
+            }
+        }
+        public void UpdateStatus (string restourantname , string status , string productname , string orderedby)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(Path))
+                {
+                    connection.Open();
+                    using (SqlCommand updatecmd = new SqlCommand(updatestatus, connection))
+                    {
+                        updatecmd.Parameters.AddWithValue("@restourantname", restourantname);
+                        updatecmd.Parameters.AddWithValue("@username", orderedby);
+                        updatecmd.Parameters.AddWithValue("@productname", productname);
+                        updatecmd.Parameters.AddWithValue("@status", status);
+                        updatecmd.ExecuteNonQuery();
+                    }
+                    connection.Close();
+                }
+            }
+            catch (Exception ea)
+            {
+
+                MessageBox.Show(ea.Message);
+            }
         }
     }
 }

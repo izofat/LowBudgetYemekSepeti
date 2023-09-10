@@ -40,6 +40,8 @@
             this.btnview = new System.Windows.Forms.Button();
             this.comboBoxproducts = new System.Windows.Forms.ComboBox();
             this.groupBoxactions = new System.Windows.Forms.GroupBox();
+            this.btnvieworders = new System.Windows.Forms.Button();
+            this.btndelete = new System.Windows.Forms.Button();
             this.btnupdate = new System.Windows.Forms.Button();
             this.groupBoxdata = new System.Windows.Forms.GroupBox();
             this.txtbximageloc = new System.Windows.Forms.TextBox();
@@ -55,9 +57,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.lblingredients = new System.Windows.Forms.Label();
             this.lblproductname = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.btndelete = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.groupBoxnoname.SuspendLayout();
             this.groupBoxactions.SuspendLayout();
             this.groupBoxdata.SuspendLayout();
@@ -193,7 +194,7 @@
             // 
             // groupBoxactions
             // 
-            this.groupBoxactions.Controls.Add(this.button1);
+            this.groupBoxactions.Controls.Add(this.btnvieworders);
             this.groupBoxactions.Controls.Add(this.btndelete);
             this.groupBoxactions.Controls.Add(this.btnupdate);
             this.groupBoxactions.Controls.Add(this.btnadd);
@@ -204,6 +205,32 @@
             this.groupBoxactions.TabIndex = 8;
             this.groupBoxactions.TabStop = false;
             this.groupBoxactions.Visible = false;
+            // 
+            // btnvieworders
+            // 
+            this.btnvieworders.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnvieworders.Font = new System.Drawing.Font("Leelawadee UI", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnvieworders.ForeColor = System.Drawing.Color.Black;
+            this.btnvieworders.Location = new System.Drawing.Point(6, 203);
+            this.btnvieworders.Name = "btnvieworders";
+            this.btnvieworders.Size = new System.Drawing.Size(176, 40);
+            this.btnvieworders.TabIndex = 9;
+            this.btnvieworders.Text = "View Orders";
+            this.btnvieworders.UseVisualStyleBackColor = false;
+            this.btnvieworders.Click += new System.EventHandler(this.btnvieworders_Click);
+            // 
+            // btndelete
+            // 
+            this.btndelete.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btndelete.Font = new System.Drawing.Font("Leelawadee UI", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btndelete.ForeColor = System.Drawing.Color.Black;
+            this.btndelete.Location = new System.Drawing.Point(6, 157);
+            this.btndelete.Name = "btndelete";
+            this.btndelete.Size = new System.Drawing.Size(176, 40);
+            this.btndelete.TabIndex = 8;
+            this.btndelete.Text = "Delete Product";
+            this.btndelete.UseVisualStyleBackColor = false;
+            this.btndelete.Click += new System.EventHandler(this.btndelete_Click);
             // 
             // btnupdate
             // 
@@ -233,9 +260,9 @@
             this.groupBoxdata.Controls.Add(this.label3);
             this.groupBoxdata.Controls.Add(this.lblingredients);
             this.groupBoxdata.Controls.Add(this.lblproductname);
-            this.groupBoxdata.Location = new System.Drawing.Point(445, 209);
+            this.groupBoxdata.Location = new System.Drawing.Point(454, 209);
             this.groupBoxdata.Name = "groupBoxdata";
-            this.groupBoxdata.Size = new System.Drawing.Size(661, 322);
+            this.groupBoxdata.Size = new System.Drawing.Size(634, 322);
             this.groupBoxdata.TabIndex = 9;
             this.groupBoxdata.TabStop = false;
             this.groupBoxdata.Visible = false;
@@ -243,7 +270,7 @@
             // txtbximageloc
             // 
             this.txtbximageloc.Font = new System.Drawing.Font("Leelawadee UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtbximageloc.Location = new System.Drawing.Point(156, 235);
+            this.txtbximageloc.Location = new System.Drawing.Point(157, 234);
             this.txtbximageloc.Name = "txtbximageloc";
             this.txtbximageloc.Size = new System.Drawing.Size(166, 33);
             this.txtbximageloc.TabIndex = 21;
@@ -255,7 +282,7 @@
             this.comboBoxstatus.Items.AddRange(new object[] {
             "in Stock",
             "out of Stock"});
-            this.comboBoxstatus.Location = new System.Drawing.Point(156, 186);
+            this.comboBoxstatus.Location = new System.Drawing.Point(157, 185);
             this.comboBoxstatus.Name = "comboBoxstatus";
             this.comboBoxstatus.Size = new System.Drawing.Size(166, 33);
             this.comboBoxstatus.TabIndex = 18;
@@ -264,7 +291,7 @@
             // 
             this.lblstatus.AutoSize = true;
             this.lblstatus.Font = new System.Drawing.Font("Leelawadee UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblstatus.Location = new System.Drawing.Point(52, 194);
+            this.lblstatus.Location = new System.Drawing.Point(53, 193);
             this.lblstatus.Name = "lblstatus";
             this.lblstatus.Size = new System.Drawing.Size(77, 25);
             this.lblstatus.TabIndex = 17;
@@ -274,7 +301,7 @@
             // 
             this.btngetimage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.btngetimage.Font = new System.Drawing.Font("Leelawadee UI", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btngetimage.Location = new System.Drawing.Point(315, 235);
+            this.btngetimage.Location = new System.Drawing.Point(316, 234);
             this.btngetimage.Name = "btngetimage";
             this.btngetimage.Size = new System.Drawing.Size(49, 35);
             this.btngetimage.TabIndex = 16;
@@ -286,7 +313,7 @@
             // picturebxproduct
             // 
             this.picturebxproduct.BackColor = System.Drawing.Color.White;
-            this.picturebxproduct.Location = new System.Drawing.Point(369, 37);
+            this.picturebxproduct.Location = new System.Drawing.Point(370, 36);
             this.picturebxproduct.Name = "picturebxproduct";
             this.picturebxproduct.Size = new System.Drawing.Size(274, 194);
             this.picturebxproduct.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -297,7 +324,7 @@
             // 
             this.btnsave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.btnsave.Font = new System.Drawing.Font("Leelawadee UI", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnsave.Location = new System.Drawing.Point(156, 281);
+            this.btnsave.Location = new System.Drawing.Point(157, 280);
             this.btnsave.Name = "btnsave";
             this.btnsave.Size = new System.Drawing.Size(111, 35);
             this.btnsave.TabIndex = 14;
@@ -310,7 +337,7 @@
             // 
             this.lblimageloc.AutoSize = true;
             this.lblimageloc.Font = new System.Drawing.Font("Leelawadee UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblimageloc.Location = new System.Drawing.Point(18, 238);
+            this.lblimageloc.Location = new System.Drawing.Point(19, 237);
             this.lblimageloc.Name = "lblimageloc";
             this.lblimageloc.Size = new System.Drawing.Size(113, 25);
             this.lblimageloc.TabIndex = 12;
@@ -319,7 +346,7 @@
             // txtbxprice
             // 
             this.txtbxprice.Font = new System.Drawing.Font("Leelawadee UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtbxprice.Location = new System.Drawing.Point(156, 135);
+            this.txtbxprice.Location = new System.Drawing.Point(157, 134);
             this.txtbxprice.MaxLength = 4;
             this.txtbxprice.Name = "txtbxprice";
             this.txtbxprice.Size = new System.Drawing.Size(166, 33);
@@ -328,7 +355,7 @@
             // txtbxingredients
             // 
             this.txtbxingredients.Font = new System.Drawing.Font("Leelawadee UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtbxingredients.Location = new System.Drawing.Point(156, 85);
+            this.txtbxingredients.Location = new System.Drawing.Point(157, 84);
             this.txtbxingredients.MaxLength = 199;
             this.txtbxingredients.Name = "txtbxingredients";
             this.txtbxingredients.Size = new System.Drawing.Size(166, 33);
@@ -337,7 +364,7 @@
             // txtbxproductname
             // 
             this.txtbxproductname.Font = new System.Drawing.Font("Leelawadee UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtbxproductname.Location = new System.Drawing.Point(156, 37);
+            this.txtbxproductname.Location = new System.Drawing.Point(157, 36);
             this.txtbxproductname.MaxLength = 59;
             this.txtbxproductname.Name = "txtbxproductname";
             this.txtbxproductname.Size = new System.Drawing.Size(166, 33);
@@ -347,7 +374,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Leelawadee UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(63, 143);
+            this.label3.Location = new System.Drawing.Point(64, 142);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(66, 25);
             this.label3.TabIndex = 8;
@@ -357,7 +384,7 @@
             // 
             this.lblingredients.AutoSize = true;
             this.lblingredients.Font = new System.Drawing.Font("Leelawadee UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblingredients.Location = new System.Drawing.Point(6, 93);
+            this.lblingredients.Location = new System.Drawing.Point(7, 92);
             this.lblingredients.Name = "lblingredients";
             this.lblingredients.Size = new System.Drawing.Size(129, 25);
             this.lblingredients.TabIndex = 7;
@@ -367,47 +394,33 @@
             // 
             this.lblproductname.AutoSize = true;
             this.lblproductname.Font = new System.Drawing.Font("Leelawadee UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblproductname.Location = new System.Drawing.Point(55, 45);
+            this.lblproductname.Location = new System.Drawing.Point(56, 44);
             this.lblproductname.Name = "lblproductname";
             this.lblproductname.Size = new System.Drawing.Size(74, 25);
             this.lblproductname.TabIndex = 6;
             this.lblproductname.Text = "Name :";
             // 
+            // panel1
+            // 
+            this.panel1.AutoScroll = true;
+            this.panel1.Location = new System.Drawing.Point(12, 398);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(436, 260);
+            this.panel1.TabIndex = 10;
+            this.panel1.Visible = false;
+            // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
-            // 
-            // btndelete
-            // 
-            this.btndelete.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btndelete.Font = new System.Drawing.Font("Leelawadee UI", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btndelete.ForeColor = System.Drawing.Color.Black;
-            this.btndelete.Location = new System.Drawing.Point(6, 157);
-            this.btndelete.Name = "btndelete";
-            this.btndelete.Size = new System.Drawing.Size(176, 40);
-            this.btndelete.TabIndex = 8;
-            this.btndelete.Text = "Delete Product";
-            this.btndelete.UseVisualStyleBackColor = false;
-            this.btndelete.Click += new System.EventHandler(this.btndelete_Click);
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.button1.Font = new System.Drawing.Font("Leelawadee UI", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.Black;
-            this.button1.Location = new System.Drawing.Point(6, 203);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(176, 40);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "View Orders";
-            this.button1.UseVisualStyleBackColor = false;
             // 
             // BusinessForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.ClientSize = new System.Drawing.Size(1100, 543);
+            this.ClientSize = new System.Drawing.Size(1100, 663);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBoxdata);
             this.Controls.Add(this.groupBoxactions);
             this.Controls.Add(this.comboBoxproducts);
@@ -453,11 +466,12 @@
         private System.Windows.Forms.Button btnsave;
         private System.Windows.Forms.Button btngetimage;
         private System.Windows.Forms.Button btnupdate;
-        private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.ComboBox comboBoxstatus;
         private System.Windows.Forms.Label lblstatus;
         private System.Windows.Forms.TextBox txtbximageloc;
         private System.Windows.Forms.Button btndelete;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnvieworders;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }

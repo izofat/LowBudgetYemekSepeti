@@ -20,6 +20,7 @@ namespace Food_Delivery_Platform
                             "VALUES ( @id , @restourantname , @productname ,  @ingredients ," +
                             " @count , @price ,  @username ,  @location ,  @status )";
         string getorders = "SELECT @something FROM Orders WHERE OrderedBy = @username";
+        string checkproducts = "SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = @tablename";
         public string CheckLocation(string username)
         {
             string location = "";
@@ -93,6 +94,27 @@ namespace Food_Delivery_Platform
                 MessageBox.Show(ea.Message);
             }            
             return restourants;
+        }
+        public object CheckProducts(string restourantname)
+        {
+            object stat = "";
+            try
+            {
+                using(SqlConnection connection = new SqlConnection(Path))
+                {
+                    connection.Open();
+                    using(SqlCommand checkcmd = new SqlCommand(checkproducts, connection))
+                    {
+                        checkcmd.Parameters.AddWithValue("@tablename", restourantname);
+                        stat = checkcmd.ExecuteScalar();
+                    }
+                }
+            }
+            catch (Exception ea)
+            {
+                MessageBox.Show(ea.Message);
+            }
+            return stat;
         }
         public void ShowProducts (string restourantname , out int count  , out List<string> productname,
                                     out List<string> ingredients, out List<string> prices , out List<string> statuses,
